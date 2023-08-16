@@ -29,6 +29,7 @@ def message(msg, color):
 
 def game_loop():
     global score
+    paused = False
     game_over = False
     game_close = False
 
@@ -76,6 +77,13 @@ def game_loop():
                 elif event.key == pygame.K_DOWN:
                     y1_change = snake_block
                     x1_change = 0
+                elif event.key == pygame.K_ESCAPE:  # Pressing Esc toggles pause
+                    paused = not paused
+
+        if paused:
+            message("Paused", white)
+            pygame.display.update()
+            continue  # Skip the rest of the loop and restart it
 
         if x1 >= width or x1 < 0 or y1 >= height or y1 < 0:
             game_close = True
