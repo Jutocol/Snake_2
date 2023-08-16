@@ -24,8 +24,11 @@ font_style = pygame.font.SysFont(None, 50)
 def message(msg, color):
     msg_text = font_style.render(msg, True, color)
     display.blit(msg_text, [width / 2, height / 2])
+    score_text = font_style.render("Score: " + str(score), True, color)
+    display.blit(score_text, [10, 10])  # Display score at the top left corner
 
 def game_loop():
+    global score
     game_over = False
     game_close = False
 
@@ -40,6 +43,8 @@ def game_loop():
 
     food_x = round(random.randrange(0, width - snake_block) / 10.0) * 10.0
     food_y = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
+
+    score = 0  # Initialize the score
 
     while not game_over:
         while game_close == True:
@@ -102,6 +107,7 @@ def game_loop():
             food_x = round(random.randrange(0, width - snake_block) / 10.0) * 10.0
             food_y = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
             length_of_snake += 1
+            score += 10  # Increase the score by 10 each time the snake eats food
 
         pygame.display.update()
 
@@ -113,3 +119,4 @@ def game_loop():
 
 clock = pygame.time.Clock()
 game_loop()
+
